@@ -45,6 +45,11 @@ The above code defines a quantum program that takes in a quantum circuit of 2 qu
 ```
 Probabilities: 
 -------------------
+|00> : [0.7071067811865475]
+|01> : [0.0]
+|10> : [0.0]
+|11> : [0.7071067811865475]
+
 |00> : [0.4999999999999999]
 |01> : [0.0]
 |10> : [0.0]
