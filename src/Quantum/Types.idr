@@ -8,7 +8,7 @@ import Matrix
 
 import Util
 
-export 
+public export 
 Q : Type -> Type 
 Q = L1 IO
 

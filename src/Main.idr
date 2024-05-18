@@ -17,19 +17,18 @@ prog initial = do
           |> CNOT      -- If the first bit is true, flip the second bit (entangles the two bits)
 
     -- Return the final state
-    finish result
+    measure result
 
 main : IO ()
 main = do 
     -- Create initial state (both bits set to 0 by default)
     let initial = zero >< zero
     
+    -- Run the quantum circuit with the initial state
     result <- runCircuit initial prog
-    let probs  = result * result -- Square state vec to get probabilities
 
-    -- Print the probabilities of each state
-    putStrLn "Probabilities: "
+    -- Print the result
+    putStrLn "Result: "
     putStrLn "-------------------"
     printStateVec result
-    printStateVec probs
 
