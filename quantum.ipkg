@@ -16,7 +16,9 @@ authors = "archaversine"
 depends = contrib, linear, matrix
 
 -- modules to install
--- modules =
+modules = Quantum.Gates 
+        , Quantum.Types 
+        , Matrix
 
 -- main file (i.e. file to load at REPL)
 main = Main
