@@ -70,14 +70,14 @@ One problem with quantum computing in general is that it's difficult to abstract
 Quantum Circuits are represented as monads, which allows for easy composition of quantum circuits. For example, let's define a custom
 operation that applies the hadamard to the first qubit and applies the controlled NOT gate to the second qubit:
 
-```idris2
+```idris
 myOperation : (1 q : QSystem 4) -> QSystem 4 
 myOperation initial = initial |> (H >< ID) |> CNOT
 ```
 
 Now, let's define a custom operation which performs the previously defined operation twice:
 
-```idris2
+```idris
 myOperation : (1 q : QSystem 4) -> QSystem 4
 myOperation initial = initial |> (H >< ID) |> CNOT
 
@@ -91,7 +91,7 @@ It's important to note that because the operations were defined as pure function
 they cannot non-deterministically measure the qubits. If you want compositions of quantum operations that can measure 
 qubits, you can use the monadic bind operator to combine these operations. For example:
 
-```idris2
+```idris
 myOperation : QCircuit 4
 myOperation initial = measure (initial |> (H >< ID) |> CNOT)
 
