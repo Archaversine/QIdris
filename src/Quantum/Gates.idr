@@ -12,7 +12,11 @@ gate (MkMat m1) (MkMat m2) = matmul (MkMat m1) (MkMat m2)
 
 public export
 ID : Matrix 2 2 Double
-ID = MkMat [[1, 0], [0, 1]]
+ID = identity
+
+public export
+IDN : (n : Nat) -> Matrix n n Double
+IDN n = identity
 
 public export
 X : Matrix 2 2 Double
