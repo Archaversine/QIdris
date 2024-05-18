@@ -10,7 +10,7 @@ import Util
 
 export 
 Q : Type -> Type 
-Q = L {use=1} IO
+Q = L1 IO
 
 public export
 QSystem : Nat -> Type 
@@ -32,19 +32,19 @@ finish = pure1
 
 export 
 zero : Matrix 2 1 Double 
-zero = fromVect [1, 0]
+zero = colVect [1, 0]
 
 export 
-zero' : Matrix 1 2 Double
-zero' = MkMat [[1, 0]]
+zeroT : Matrix 1 2 Double
+zeroT = rowVect [1, 0]
 
 export 
 one : Matrix 2 1 Double 
-one = fromVect [0, 1]
+one = colVect [0, 1]
 
 export
-one' : Matrix 1 2 Double 
-one' = MkMat [[0, 1]]
+oneT : Matrix 1 2 Double 
+oneT = rowVect [0, 1]
 
 odd : Nat -> Bool
 odd Z = False 

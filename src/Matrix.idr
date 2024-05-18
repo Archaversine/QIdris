@@ -17,8 +17,12 @@ Functor (Matrix r c) where
     map f (MkMat m) = MkMat (map (map f) m)
 
 export 
-fromVect : {n : Nat} -> Vect n a -> Matrix n 1 a
-fromVect v = MkMat (map (\x => [x]) v)
+colVect : {n : Nat} -> Vect n a -> Matrix n 1 a
+colVect v = MkMat (map (\x => [x]) v)
+
+export 
+rowVect : {n : Nat} -> Vect n a -> Matrix 1 n a 
+rowVect v = MkMat [v]
 
 export
 Show a => Show (Matrix r c a) where 
