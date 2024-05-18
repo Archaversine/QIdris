@@ -32,13 +32,20 @@ QCircuit n = (1 _ : QSystem n) -> Q (QSystem n)
 
 ||| Run a quantum circuit with a given initial system state.
 |||
-||| Example: runCircuit myCircuit (one >< zero >< zero)
+||| Example: runCircuitWith (one >< zero >< zero) myCircuit
 ||| runs `myCircuit` with the initial state |100>.
 export 
-runCircuit : QSystem n -> QCircuit n -> IO (QSystem n)
-runCircuit initial prog = run $ do
+runCircuitWith : QSystem n -> QCircuit n -> IO (QSystem n)
+runCircuitWith initial prog = run $ do
     MkMat result <- prog initial
     pure (MkMat result)
+
+||| Run a quantum circuit with an initial state where each qubit is |0>.
+||| 
+||| Example: runCircuit myCircuit runs `myCircuit` with the initial state |000>.
+export 
+runCircuit : {n : Nat} -> QCircuit (S n) -> IO (QSystem (S n))
+runCircuit circuit = runCircuitWith (set FZ FZ 1 zeros) circuit
 
 ||| Finish a quantum circuit by returning the given system state.
 export 

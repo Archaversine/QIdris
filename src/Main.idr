@@ -20,7 +20,7 @@ main = do
     let initial = zero >< zero
     
     -- Run the quantum circuit with the initial state
-    result <- runCircuit initial prog
+    result <- runCircuit prog
 
     -- Print the result
     putStrLn "Result: "
