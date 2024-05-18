@@ -16,10 +16,12 @@ export
 Functor (Matrix r c) where 
     map f (MkMat m) = MkMat (map (map f) m)
 
+||| Convert a vector to a column matrix
 export 
 colVect : {n : Nat} -> Vect n a -> Matrix n 1 a
 colVect v = MkMat (map (\x => [x]) v)
 
+||| Convert a vector to a row matrix
 export 
 rowVect : {n : Nat} -> Vect n a -> Matrix 1 n a 
 rowVect v = MkMat [v]
@@ -35,14 +37,17 @@ export
 
     fromInteger k = MkMat (replicate r (replicate c (fromInteger k)))
 
+||| Create a matrix of any size with all elements set to zero
 export
 zeros : Num a => {r, c : Nat} -> Matrix r c a
 zeros = MkMat (replicate r (replicate c 0))
 
+||| Create a matrix of any size with all elements set to one
 export 
 ones : Num a => {r, c : Nat} -> Matrix r c a
 ones = MkMat (replicate r (replicate c 1))
 
+||| Retreive a value from a matrix
 export
 index : Fin r -> Fin c -> Matrix r c a -> a
 index r c (MkMat m) = index c (index r m)
@@ -50,6 +55,7 @@ index r c (MkMat m) = index c (index r m)
 updateRow : a -> Fin c -> Vect c a -> Vect c a
 updateRow value c row = updateAt c (const value) row
 
+||| Set a value in a matrix
 export 
 set : Fin r -> Fin c -> a -> Matrix r c a -> Matrix r c a
 set r c value (MkMat m) = MkMat (updateAt r (updateRow value c) m)
@@ -57,10 +63,12 @@ set r c value (MkMat m) = MkMat (updateAt r (updateRow value c) m)
 setM : Fin r -> Fin c -> a -> State (Matrix r c a) ()
 setM r c value = modify (set r c value)
 
+||| The identity matrix. Both dimensions are the same size.
 export 
 identity : Num a => {size : Nat} -> Matrix size size a
 identity = foldl (.) id [set i i 1 | i <- range {len=size}] zeros
 
+||| Transpose a matrix
 export 
 transpose : {r, c : Nat} -> Matrix r c a -> Matrix c r a
 transpose (MkMat m) = MkMat (transpose m)
@@ -77,6 +85,7 @@ shiftFin m f = modFin (finToNat f) m
 
 export infixl 9 ><
 
+||| Tensor product of two matrices
 export
 (><) : Num a 
     => {r1, r2, c1, c2 : Nat} 
@@ -99,6 +108,7 @@ export
 
             setM row col (index rowA colA m1 * index rowB colB m2)
 
+||| Scale a matrix by a scalar
 export
 (.scale) : Num a => Matrix r c a -> a -> Matrix r c a
 (.scale) (MkMat m) s = MkMat (map (map (*s)) m)
@@ -115,6 +125,7 @@ export
 dotProduct : Num a => Vect n a -> Vect n a -> a
 dotProduct v1 v2 = sum (zipWith (*) v1 v2)
 
+||| Standard matrix multiplication
 export
 matmul : {c1 : Nat} -> {n : Nat} -> Num a => Matrix r1 c1 a -> Matrix c1 n a -> Matrix r1 n a
 matmul (MkMat mat1) mat2 = let (MkMat mat2') = transpose mat2 in MkMat $ mat1 <&> \r1 => 
