@@ -73,7 +73,7 @@ measureMatPure k [] = []
 measureMatPure k [[x]] = [[1]]
 measureMatPure k (x :: xs) with (k <= head x * head x)
     _ | True  = rewrite sym (lengthCorrect xs) in [1] :: replicate (length xs) [0]
-    _ | False = [0] :: measureMatPure k xs
+    _ | False = [0] :: measureMatPure (k - head x) xs
 
 ||| Deterministically measure a quantum system
 export
