@@ -7,8 +7,14 @@ import Matrix
 import Quantum.Types
 
 export
-gate : {c1 : Nat} -> {n : Nat} -> Num a => (1 _ : Matrix r1 c1 a) -> (1 _ : Matrix c1 n a) -> Matrix r1 n a
-gate (MkMat m1) (MkMat m2) = matmul (MkMat m1) (MkMat m2)
+gate : {c1 : Nat} -> {n : Nat} -> Num a => (1 g : Matrix r1 c1 a) -> (1 m : Matrix c1 n a) -> Matrix r1 n a
+gate (MkMat g) (MkMat m) = matmul (MkMat g) (MkMat m)
+
+export infixl 4 |>
+
+export
+(|>) : {c1 : Nat} -> {n : Nat} -> Num a => (1 m : Matrix c1 n a) -> (1 g : Matrix r1 c1 a) -> Matrix r1 n a
+(|>) (MkMat m) (MkMat g) = matmul (MkMat g) (MkMat m)
 
 public export
 ID : Matrix 2 2 Double

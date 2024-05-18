@@ -12,16 +12,12 @@ import Quantum.Types
 -- The input matrix is a linear type to prevent copy bugs
 prog : QCircuit 4
 prog initial = do 
-    -- Put the first qubit in superposition (and identity on second)
-    let afterH = gate (H >< ID) initial
-
-    -- If the first bit is true, flip the second bit
-    -- (this entangles the two bits)
-    --let afterCNOT = gate (CNOT) afterH
-    let afterCNOT = gate (CNOTN 2 X) afterH
+    let result = initial
+          |> (H >< ID) -- Put the first qubit in superposition (and identity on second)
+          |> CNOT      -- If the first bit is true, flip the second bit (entangles the two bits)
 
     -- Return the final state
-    finish afterCNOT
+    finish result
 
 main : IO ()
 main = do 
