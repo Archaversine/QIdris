@@ -6,6 +6,10 @@ A Quantum simulator built in Idris 2.
 
 This project is a quantum simulator built in Idris 2. It is a work in progress and is not yet complete. The goal is to build a quantum simulator that can simulate quantum circuits and quantum algorithms with type safety via quantitative type theory.
 
+## Documentation 
+
+The documentation for this project can be found [here](https://archaversine.github.io/QIdris/)
+
 ## Example
 
 ```idris
@@ -38,7 +42,9 @@ main = do
 
 ### Explanation 
 
-The above code defines a quantum program that takes in a quantum circuit of 2 qubits and returns a quantum circuit of 2 qubits. The program puts the first qubit in superposition, then entangles the two qubits by flipping the second qubit if the first qubit is true. The probabilities of each state are then printed. 
+The above code defines a quantum program that takes in a quantum circuit of 2 qubits and returns a quantum circuit of 2 qubits. The program puts the first qubit in superposition, then entangles the two qubits by flipping the second qubit if the first qubit is true. The probabilities of each state are then printed. It is equivalent to the following quantum circuit:
+
+![Quantum Circuit](https://raw.githubusercontent.com/Archaversine/QIdris/main/circuit.png)
 
 ### Output
 
