@@ -63,3 +63,38 @@ Probabilities:
 ```
 
 Here, the output shows that the result of the quantum program is a superposition of the states |00> and |11> with equal probabilities.
+
+## Composition of Quantum Circuits
+
+One problem with quantum computing in general is that it's difficult to abstract actions on qubits. In this implementation,
+Quantum Circuits are represented as monads, which allows for easy composition of quantum circuits. For example, let's define a custom
+operation that applies the hadamard to the first qubit and applies the controlled NOT gate to the second qubit:
+
+```idris2
+myOperation : (1 q : QSystem 4) -> QSystem 4 
+myOperation initial = initial |> (H >< ID) |> CNOT
+```
+
+Now, let's define a custom operation which performs the previously defined operation twice:
+
+```idris2
+myOperation : (1 q : QSystem 4) -> QSystem 4
+myOperation initial = initial |> (H >< ID) |> CNOT
+
+myOperationTwice : (1 q : QSystem 4) -> QSystem 4
+myOperationTwice = myOperation . myOperation
+```
+
+(NOTE: `Data.Linear` needs to be imported for function composition not throw a type error).
+
+It's important to note that because the operations were defined as pure functions operating on quantum systems, 
+they cannot non-deterministically measure the qubits. If you want compositions of quantum operations that can measure 
+qubits, you can use the monadic bind operator to combine these operations. For example:
+
+```idris2
+myOperation : QCircuit 4
+myOperation initial = measure (initial |> (H >< ID) |> CNOT)
+
+myOperationTwice : QCircuit 4
+myOperationTwice initial = myOperation initial >>= myOperation
+```
