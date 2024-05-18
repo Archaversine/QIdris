@@ -25,3 +25,12 @@ H = (MkMat [[1, 1], [1, -1]]).scale (1 / sqrt 2)
 public export 
 CNOT : Matrix 4 4 Double
 CNOT = MkMat [[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 0, 1], [0, 0, 1, 0]]
+
+public export
+pow2 : Num a => Nat -> a
+pow2 0 = 1
+pow2 (S n) = 2 * pow2 n
+
+public export 
+CNOTN : (n : Nat) -> Matrix (pow2 (n `minus` 1)) (pow2 (n `minus` 1)) Double -> Matrix (2 * pow2 (n `minus` 1)) (2 * pow2 (n `minus` 1)) Double
+CNOTN n m = (zero `matmul` zero') >< identity {size=pow2 (n `minus` 1)} + (one `matmul` one') >< m

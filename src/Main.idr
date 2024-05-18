@@ -17,7 +17,8 @@ prog initial = do
 
     -- If the first bit is true, flip the second bit
     -- (this entangles the two bits)
-    let afterCNOT = gate (CNOT) afterH
+    --let afterCNOT = gate (CNOT) afterH
+    let afterCNOT = gate (CNOTN 2 X) afterH
 
     -- Return the final state
     afterCNOT

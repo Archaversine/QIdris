@@ -15,8 +15,16 @@ zero : Matrix 2 1 Double
 zero = fromVect [1, 0]
 
 export 
+zero' : Matrix 1 2 Double
+zero' = MkMat [[1, 0]]
+
+export 
 one : Matrix 2 1 Double 
 one = fromVect [0, 1]
+
+export
+one' : Matrix 1 2 Double 
+one' = MkMat [[0, 1]]
 
 odd : Nat -> Bool
 odd Z = False 
