@@ -4,7 +4,7 @@ import Control.Linear.LIO
 
 import Data.Vect
 
-import Matrix
+import public Matrix
 
 import Quantum.Types
 

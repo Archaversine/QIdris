@@ -1,11 +1,6 @@
 module Main
 
-import Data.Vect
-
-import Matrix
-
-import Quantum.Gates
-import Quantum.Types
+import Quantum
 
 -- Define a quantum program that takes in a circuit of 2 qubits
 -- 2 qubits = 4 possible states
