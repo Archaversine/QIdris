@@ -16,7 +16,7 @@ prog initial = do
           |> (H >< ID) -- Put the first qubit in superposition (and identity on second)
           |> CNOT      -- If the first bit is true, flip the second bit (entangles the two bits)
 
-    -- Return the final state
+    -- Measure the result and return it
     measure result
 
 main : IO ()

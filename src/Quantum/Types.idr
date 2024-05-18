@@ -1,6 +1,6 @@
 module Quantum.Types
 
-import Control.Linear.LIO
+import public Control.Linear.LIO
 
 import Data.String
 
