@@ -1,14 +1,34 @@
 module Quantum.Types
 
+import Control.Linear.LIO
+
 import Data.String
 
 import Matrix
 
 import Util
 
+export 
+Q : Type -> Type 
+Q = L {use=1} IO
+
 public export
+QSystem : Nat -> Type 
+QSystem n = Matrix n 1 Double
+
+public export 
 QCircuit : Nat -> Type 
-QCircuit n = Matrix n 1 Double
+QCircuit n = (1 _ : QSystem n) -> Q (QSystem n)
+
+export 
+runCircuit : QSystem n -> QCircuit n -> IO (QSystem n)
+runCircuit initial prog = run $ do
+    MkMat result <- prog initial
+    pure (MkMat result)
+
+export 
+finish : (1 q : QSystem n) -> Q (QSystem n)
+finish = pure1
 
 export 
 zero : Matrix 2 1 Double 

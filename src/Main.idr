@@ -10,7 +10,7 @@ import Quantum.Types
 -- Define a quantum program that takes in a circuit of 2 qubits
 -- 2 qubits = 4 possible states
 -- The input matrix is a linear type to prevent copy bugs
-prog : (1 m : QCircuit 4) -> QCircuit 4
+prog : QCircuit 4
 prog initial = do 
     -- Put the first qubit in superposition (and identity on second)
     let afterH = gate (H >< ID) initial
@@ -21,17 +21,19 @@ prog initial = do
     let afterCNOT = gate (CNOTN 2 X) afterH
 
     -- Return the final state
-    afterCNOT
+    finish afterCNOT
 
 main : IO ()
 main = do 
     -- Create initial state (both bits set to 0 by default)
     let initial = zero >< zero
-        result = prog initial
-        probs  = result * result -- Square state vec to get probabilities
+    
+    result <- runCircuit initial prog
+    let probs  = result * result -- Square state vec to get probabilities
 
     -- Print the probabilities of each state
     putStrLn "Probabilities: "
     putStrLn "-------------------"
+    printStateVec result
     printStateVec probs
 
