@@ -64,12 +64,12 @@ pow2 : Num a => Nat -> a
 pow2 0 = 1
 pow2 (S n) = 2 * pow2 n
 
-||| Controlled Not Gate for non-adjacent qubits.
-||| n is the number of qbits 
+||| Conditional gate. Applies a gate to a system if the control bit is |1>
+||| n is the number of qbits in the system (including the control bit)
 ||| See https://quantumcomputing.stackexchange.com/questions/4252/how-to-derive-the-cnot-matrix-for-a-3-qubit-system-where-the-control-target-qu
 public export 
-CNOTN : (n : Nat) -> Matrix (pow2 (n `minus` 1)) (pow2 (n `minus` 1)) Double -> Matrix (2 * pow2 (n `minus` 1)) (2 * pow2 (n `minus` 1)) Double
-CNOTN n m = (zero `matmul` zeroT) >< identity {size=pow2 (n `minus` 1)} + (one `matmul` oneT) >< m
+COND : (n : Nat) -> Matrix (pow2 (n `minus` 1)) (pow2 (n `minus` 1)) Double -> Matrix (2 * pow2 (n `minus` 1)) (2 * pow2 (n `minus` 1)) Double
+COND n m = (zero `matmul` zeroT) >< identity {size=pow2 (n `minus` 1)} + (one `matmul` oneT) >< m
 
 measureMatPure : (mes : Double) -> Vect n (Vect 1 Double) -> Vect n (Vect 1 Double)
 measureMatPure k [] = []
