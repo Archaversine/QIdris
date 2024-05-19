@@ -58,11 +58,14 @@ public export
 CNOT : Matrix 4 4 Double
 CNOT = MkMat [[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 0, 1], [0, 0, 1, 0]]
 
+||| A helper function to calculate the powers of 2.
+public export
 pow2 : Num a => Nat -> a
 pow2 0 = 1
 pow2 (S n) = 2 * pow2 n
 
 ||| Controlled Not Gate for non-adjacent qubits.
+||| n is the number of qbits 
 ||| See https://quantumcomputing.stackexchange.com/questions/4252/how-to-derive-the-cnot-matrix-for-a-3-qubit-system-where-the-control-target-qu
 public export 
 CNOTN : (n : Nat) -> Matrix (pow2 (n `minus` 1)) (pow2 (n `minus` 1)) Double -> Matrix (2 * pow2 (n `minus` 1)) (2 * pow2 (n `minus` 1)) Double
@@ -73,7 +76,7 @@ measureMatPure k [] = []
 measureMatPure k [[x]] = [[1]]
 measureMatPure k (x :: xs) with (k <= head x * head x)
     _ | True  = rewrite sym (lengthCorrect xs) in [1] :: replicate (length xs) [0]
-    _ | False = [0] :: measureMatPure (k - head x) xs
+    _ | False = [0] :: measureMatPure (k - head x * head x) xs
 
 ||| Deterministically measure a quantum system
 export
