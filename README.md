@@ -12,6 +12,8 @@ The documentation for this project can be found [here](https://archaversine.gith
 
 ## Example
 
+Small examples can be found [here](https://github.com/Archaversine/QIdris/blob/main/src/Examples.idr)
+
 ```idris
 -- Define a quantum program that takes in a circuit of 2 qubits
 -- 2 qubits = 4 possible states
